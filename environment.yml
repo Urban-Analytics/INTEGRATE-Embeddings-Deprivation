@@ -1,0 +1,25 @@
+name: embeddings-deprivation
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - contextily
+  - geopandas
+  - numpy
+  - matplotlib
+  - shapely
+  - jupyter
+  - jupyterlab
+  - pandas
+  - notebook
+  - seaborn
+  - scikit-learn
+  - scipy
+  - statsmodels
+  - sentence-transformers
+  - libgfortran
+  - ipywidgets
+  - conda-forge::openai-clip
+  - umap-learn
+  - xgboost
+  - kneed
