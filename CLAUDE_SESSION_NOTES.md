@@ -36,8 +36,8 @@ Scripts 2-7 are done. **Script 8 is next.**
 | 4-RunModelsWithMedianEmbedding | DONE | XGBoost with IMD data, bug fixes applied |
 | 5-IdentifyOptimalClusterNumber | DONE | Loads pickle from script 3, clustering, image display from H5 (with pid lookup), saves cluster assignments |
 | 6-TestModelOverClusters_ControlledForSampleSize | DONE | Fixed: pickle path, IMD path, model cloning, memory issue (slim_gdf + n_jobs=8), results caching |
-| 7-FindMedianEmbeddings_ForEachOf7Clusters | DONE | Fixed: pickle path, save path, cleaned imports, updated markdown |
-| 8-RunModels_ForEachOf7Clusters | TODO | Next to review |
+| 7-FindMedianEmbeddings_ForEachOfNClusters | DONE | Fixed: pickle path, save path, cleaned imports, updated markdown |
+| 8-RunModels_ForEachOfNClusters | TODO | Next to review |
 
 ## Recurring Bugs Found and Fixed
 These same bugs appeared in multiple scripts — check for them in script 8:

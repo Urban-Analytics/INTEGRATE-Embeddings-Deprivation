@@ -126,7 +126,7 @@ This script evaluates how predictive performance varies with sample size and num
 
 ----------------
 
-### 7-FindMedianEmbeddings_ForEachOf7Clusters.ipynb
+### 7-FindMedianEmbeddings_ForEachOfNClusters.ipynb
 
 This script finds the mean/min/max embedding within each cluster, within each LSOA.
 
@@ -134,7 +134,7 @@ This script finds the mean/min/max embedding within each cluster, within each LS
 
 ----------------
 
-### 8-RunModels_ForEachOf7Clusters.ipynb
+### 8-RunModels_ForEachOfNClusters.ipynb
 
 This script compares model performance using data only from one of the clusters, for each of the clusters
 
