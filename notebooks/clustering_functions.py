@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 # Important: this is the number of clusters used in the clustering scripts
 global_k = 6
 
+# Random seed for reproducibility (used across all scripts)
+RANDOM_STATE = 42
+
 def clustering_stability(all_embeddings, k, n_runs=10):
     """
     Run k-means multiple times with different random initialisations
@@ -72,13 +75,13 @@ def find_optimal_k_silhoutte_fast(all_embeddings, max_k=20, sample_size=5000):
     
     inertias = []
     sil_scores = []
-    rng = check_random_state(42)
+    rng = check_random_state(RANDOM_STATE)
     
     for k in k_values:
         #print(f"Testing k={k}")s
         
         # MiniBatchKMeans is much faster for large datasets
-        kmeans = MiniBatchKMeans(n_clusters=k, random_state=42, batch_size=1024)
+        kmeans = MiniBatchKMeans(n_clusters=k, random_state=RANDOM_STATE, batch_size=1024)
         labels = kmeans.fit_predict(all_embeddings)
         inertias.append(kmeans.inertia_)
         
