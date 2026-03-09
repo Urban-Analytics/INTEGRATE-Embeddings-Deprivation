@@ -3,7 +3,9 @@
 This repository contains code for testing whether area-level deprivation can be predicted from Google Street View imagery using image embeddings.
 
 This is part of the [INTEGRATE](https://urban-analytics.github.io/INTEGRATE/) project and originally lived in the
-[INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE), but we moved it here to make it easier to 
+[INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE), specfically 
+[here](https://github.com/Urban-Analytics/INTEGRATE/tree/main/llm/python/Embeddings/CLIP/WithClustering) 
+but we moved it to this repository to make it easier to 
 find and use, and to consolidate the locations of the code and data (which were previously spread all over the place). 
 Claude did the big refactor.
 
@@ -14,8 +16,7 @@ modelling to examine relationships between visual characteristics of neighbourho
 
 This repository provides an end-to-end workflow for:
 
-- Sampling points across a road network  
-- Downloading Google Street View imagery  
+- Sampling points across a road network and downloading Google Street View imagery (actually this is partly done by a separate script, but the output of that script is used as the input to this workflow)
 - Generating CLIP image embeddings  
 - Aggregating embeddings at the neighbourhood (LSOA) level  (median pooling)
 - Fitting a predictive model for deprivation (IMD) using the median pooled embedding in each LSOA
@@ -45,7 +46,7 @@ This repository provides an end-to-end workflow for:
 The workflow is designed to be run sequentially.
 
 ----------------
-### 1-SampleStreetNetwork.ipynb  (not needed to run)
+### 1-SampleStreetNetwork.ipynb  (_not needed to run_)
 
 This actually combines raw street view images and their metadata, originally downloaded by [this script](https://github.com/Urban-Analytics/INTEGRATE/blob/main/llm/python/5-street_view_embeddings.ipynb)
 and puts them into a H5 database for the later scripts.
