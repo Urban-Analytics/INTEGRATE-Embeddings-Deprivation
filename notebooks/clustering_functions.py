@@ -8,7 +8,7 @@ from kneed import KneeLocator
 import matplotlib.pyplot as plt
 
 # Important: this is the number of clusters used in the clustering scripts
-global_k = 6
+global_k = 5
 
 # Random seed for reproducibility (used across all scripts)
 RANDOM_STATE = 42
