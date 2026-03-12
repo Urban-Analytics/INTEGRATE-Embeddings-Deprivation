@@ -25,8 +25,7 @@ data/
 │   ├── one_row_per_image_cleaned_with_cluster_numbers.pkl  # Output of notebook 5
 │   └── per_lsoa_embedding_summaries/
 │       ├── mean_embedding.pkl
-│       ├── median_embedding.pkl
-│       └── median_embedding_per_cluster.pkl
+│       └── median_embedding.pkl
 └── models/
     ├── best_model.joblib                   # Output of notebook 4
     └── model_testing/

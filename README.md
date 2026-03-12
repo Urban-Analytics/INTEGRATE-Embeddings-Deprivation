@@ -126,18 +126,10 @@ This script evaluates how predictive performance varies with sample size and num
 
 ----------------
 
-### 7-FindMedianEmbeddings_ForEachOfNClusters.ipynb
+### 7-RunModels_ForEachOfNClusters.ipynb
 
-This script finds the mean/min/max embedding within each cluster, within each LSOA.
+This script computes per-LSOA embedding summary statistics (mean/median/max) within each cluster, then trains and evaluates a separate XGBoost model for each cluster using an 80/20 train-test split.
 
-**Output**: A pickle file containing a dataframe containing this information
-
-----------------
-
-### 8-RunModels_ForEachOfNClusters.ipynb
-
-This script compares model performance using data only from one of the clusters, for each of the clusters
-
-**Output**: A dataframe containing four different error metrics for a model trained and tested using solely images from each of 7 clusters. Also the same information plotted in a figure.
+**Output**: A comparison of model performance (R², RMSE, Spearman correlation) across clusters, with scatter plots.
 
 ----------------
