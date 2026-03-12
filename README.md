@@ -133,3 +133,13 @@ This script computes per-LSOA embedding summary statistics (mean/median/max) wit
 **Output**: A comparison of model performance (R², RMSE, Spearman correlation) across clusters, with scatter plots.
 
 ----------------
+
+### 8-Prediction_Deprivation_domains.ipynb
+
+Extends the per-cluster analysis to individual IMD deprivation domains (Income, Employment, Education, Health, Crime, Housing, Living Environment). For each domain, trains a separate XGBoost model per cluster and a global model using the overall median embedding.
+
+The default display metric is **Normalised RMSE** (NRMSE = RMSE / std(y_test)), which is comparable across clusters despite each cluster having a different subset of LSOAs. R² and RMSE are also available via a configuration option.
+
+**Output**: A results matrix with rows as IMD domains and columns as clusters + global, displayed as a heatmap.
+
+----------------

@@ -6,7 +6,7 @@ Going through each notebook script in this directory and:
 2. Fixing bugs
 3. Improving readability, reliability, and correctness
 
-Scripts 2-7 are done. **Script 8 is next.**
+Scripts 2-8 are done. **Scripts 9a/9b (AlphaEarth) are next.**
 
 ## H5 Data Store
 - **H5 path**: `../../../../data/embeddings/sample_points_cache/street_data.h5` (relative to this dir)
@@ -36,11 +36,13 @@ Scripts 2-7 are done. **Script 8 is next.**
 | 4-RunModelsWithMedianEmbedding | DONE | XGBoost with IMD data, bug fixes applied |
 | 5-IdentifyOptimalClusterNumber | DONE | Loads pickle from script 3, clustering, image display from H5 (with pid lookup), saves cluster assignments |
 | 6-TestModelOverClusters_ControlledForSampleSize | DONE | Fixed: pickle path, IMD path, model cloning, memory issue (slim_gdf + n_jobs=8), results caching |
-| 7-FindMedianEmbeddings_ForEachOfNClusters | DONE | Fixed: pickle path, save path, cleaned imports, updated markdown |
-| 8-RunModels_ForEachOfNClusters | TODO | Next to review |
+| 7-RunModels_ForEachOfNClusters | DONE | Merged old scripts 7+8: computes per-LSOA embedding summaries then trains per-cluster XGBoost models. Removed intermediate pickle (data flows in memory). |
+| 8-Prediction_Deprivation_domains | DONE | Predicts each IMD domain (not just overall) per cluster + global. Uses rank; TODO: switch to score and make consistent with scripts 4 & 7. |
+| 9a-DownloadAlphaEarthEmbeddings | TODO | Next to review |
+| 9b-RunModelWithAlphaEarthEmbeddings | TODO | Next to review |
 
 ## Recurring Bugs Found and Fixed
-These same bugs appeared in multiple scripts — check for them in script 8:
+These same bugs appeared in multiple scripts — check for them in scripts 9a/9b:
 1. **Double embeddings path**: `data_dir + "embeddings/..."` produces `data/embeddings/embeddings/...` because `data_dir` already includes `embeddings/`. Fix: `os.path.join(data_dir, "filename.pkl")`.
 2. **Hardcoded wrong IMD path**: Scripts had `os.path.join("../../../../", "data", "imd", ...)` but the 2025 IMD file is at `data/embeddings/imd/`. Fix: use `imd_file` from `directory_filepaths.py`.
 3. **`pickle.load` instead of `pd.read_pickle`**: Readability fix.
@@ -48,8 +50,8 @@ These same bugs appeared in multiple scripts — check for them in script 8:
 ## Key Data Flow
 - Script 3 produces `one_row_per_image_cleaned.pkl` (75,586 rows)
 - Script 5 adds cluster columns → `one_row_per_image_cleaned_with_cluster_numbers.pkl`
-- Scripts 6, 7, 8 consume the script 5 pickle
-- Script 7 produces `per_lsoa_embedding_summaries/median_embedding_per_cluster.pkl`
+- Scripts 6, 7, and 8 consume the script 5 pickle
+- Script 7 (merged) computes summaries in memory and trains per-cluster models (no intermediate pickle)
 - User is OK keeping intermediate pickle files
 
 ## User Preferences
