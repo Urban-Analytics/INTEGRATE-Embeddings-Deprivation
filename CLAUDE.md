@@ -38,7 +38,7 @@ Scripts 2-8 are done. **Scripts 9a/9b (AlphaEarth) are next.**
 | 6-TestModelOverClusters_ControlledForSampleSize | DONE | Fixed: pickle path, IMD path, model cloning, memory issue (slim_gdf + n_jobs=8), results caching |
 | 7-RunModels_ForEachOfNClusters | DONE | Merged old scripts 7+8: computes per-LSOA embedding summaries then trains per-cluster XGBoost models. Removed intermediate pickle (data flows in memory). |
 | 8-Prediction_Deprivation_domains | DONE | Predicts each IMD domain (not just overall) per cluster + global. Default metric is NRMSE (comparable across clusters). Uses rank; TODO: switch to score and make consistent with scripts 4 & 7. |
-| 9a-DownloadAlphaEarthEmbeddings | TODO | Next to review |
+| 9a-DownloadAlphaEarthEmbeddings | IN PROGRESS | Rewritten: exports GeoTIFF to Drive, then computes zonal stats locally with rasterstats. No more per-batch EE API calls. |
 | 9b-RunModelWithAlphaEarthEmbeddings | TODO | Next to review |
 
 ## Recurring Bugs Found and Fixed
