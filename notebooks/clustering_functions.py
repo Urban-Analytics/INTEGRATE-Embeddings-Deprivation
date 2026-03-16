@@ -10,8 +10,35 @@ import matplotlib.pyplot as plt
 # Important: this is the number of clusters used in the clustering scripts
 global_k = 5
 
+# Which summary statistic to use when aggregating per-image embeddings to per-LSOA.
+# All scripts that aggregate embeddings should import and use this value.
+# Options: 'mean', 'median', 'max'
+embedding_statistic = 'median'
+
 # Random seed for reproducibility (used across all scripts)
 RANDOM_STATE = 42
+
+
+# ---------------------------------------------------------------------------
+# Embedding aggregation helpers
+# Used by scripts 6, 7, 8 (and anywhere else that needs to reduce a Series
+# of embedding vectors to a single summary vector).
+# ---------------------------------------------------------------------------
+
+def mean_embed(series):
+    """Element-wise mean of a Series of embedding vectors."""
+    return np.mean(np.stack(series.values), axis=0)
+
+def median_embed(series):
+    """Element-wise median of a Series of embedding vectors."""
+    return np.median(np.stack(series.values), axis=0)
+
+def max_embed(series):
+    """Element-wise max of a Series of embedding vectors."""
+    return np.max(np.stack(series.values), axis=0)
+
+# Lookup dict so callers can do:  agg_funcs[embedding_statistic](series)
+agg_funcs = {"mean": mean_embed, "median": median_embed, "max": max_embed}
 
 def clustering_stability(all_embeddings, k, n_runs=10):
     """

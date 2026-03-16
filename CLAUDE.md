@@ -1,12 +1,7 @@
 # Claude Session Notes — Script Review & Refactoring
 
 ## Current Task
-Going through each notebook script in this directory and:
-1. Refactoring to use the H5 data store where appropriate
-2. Fixing bugs
-3. Improving readability, reliability, and correctness
-
-Scripts 2-8 are done. **Scripts 9a/9b (AlphaEarth) are next.**
+All notebook scripts (2–9b) have been reviewed and refactored. Now updating the LaTeX paper (`latex/main.tex`) to align with the notebook results.
 
 ## H5 Data Store
 - **H5 path**: `../../../../data/embeddings/sample_points_cache/street_data.h5` (relative to this dir)
@@ -38,8 +33,8 @@ Scripts 2-8 are done. **Scripts 9a/9b (AlphaEarth) are next.**
 | 6-TestModelOverClusters_ControlledForSampleSize | DONE | Fixed: pickle path, IMD path, model cloning, memory issue (slim_gdf + n_jobs=8), results caching |
 | 7-RunModels_ForEachOfNClusters | DONE | Merged old scripts 7+8: computes per-LSOA embedding summaries then trains per-cluster XGBoost models. Removed intermediate pickle (data flows in memory). |
 | 8-Prediction_Deprivation_domains | DONE | Predicts each IMD domain (not just overall) per cluster + global. Default metric is NRMSE (comparable across clusters). Uses rank; TODO: switch to score and make consistent with scripts 4 & 7. |
-| 9a-DownloadAlphaEarthEmbeddings | IN PROGRESS | Rewritten: exports GeoTIFF to Drive, then computes zonal stats locally with rasterstats. No more per-batch EE API calls. |
-| 9b-RunModelWithAlphaEarthEmbeddings | TODO | Next to review |
+| 9a-DownloadAlphaEarthEmbeddings | DONE | Rewritten: exports GeoTIFF to Drive, then computes zonal stats locally with rasterstats. No more per-batch EE API calls. |
+| 9b-RunModelWithAlphaEarthEmbeddings | DONE | XGBoost on AlphaEarth 64-dim satellite embeddings. CV R²=0.306 vs street-view 0.660. Saves model + residuals map. |
 
 ## Recurring Bugs Found and Fixed
 These same bugs appeared in multiple scripts — check for them in scripts 9a/9b:
