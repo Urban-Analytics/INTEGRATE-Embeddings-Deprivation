@@ -28,3 +28,4 @@ dependencies:
   - rasterstats
   - nbdime
   - openpyxl
+  - h5py
