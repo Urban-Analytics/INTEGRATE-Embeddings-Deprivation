@@ -41,9 +41,65 @@ This repository provides an end-to-end workflow for:
 - **Clustering**: Embeddings are clustered to test whether visually distinct image groupings exist.
 - **Modelling**: Supervised models are trained to predict IMD using aggregated embedding features.
 
+## Notebook Dependency Graph
+
+The diagram below shows which notebooks must be run before others. An arrow from A to B means
+"B depends on an output of A". Notebooks 9a–9b form an independent branch (satellite embeddings)
+that only rejoins the main pipeline via the saved best model from script 4.
+
+```
+                     External data
+                     (raw images, IMD, LSOAs)
+                          │
+                   ┌──────┴──────┐
+                   ▼              ▼
+              1-Sample       9a-AlphaEarth
+              StreetNet      (GEE download)
+                   │              │
+                   ▼              │
+              2-Calculate         │
+              Embeddings          │
+                   │              │
+                   ▼              │
+              3-Process           │
+              Embeddings          │
+                   │              │
+              ┌────┴────┐         │
+              ▼         ▼         │
+         4-Global    5-Cluster    │
+         Model       Numbers     │
+              │         │         │
+              │    ┌────┼────┐    │
+              │    ▼    ▼    ▼    │
+              │    6    7    8    │
+              │                   │
+              └─────────┬─────────┘
+                        ▼
+                   9b-AlphaEarth
+                   Model
+```
+
+| Notebook | Depends on (must run first) | Key inputs |
+|----------|-----------------------------|------------|
+| **1** | — | Raw images pickle |
+| **2** | 1 | H5 store (images) |
+| **3** | 2 | H5 store (embeddings), LSOA shapefile |
+| **4** | 3 | Per-LSOA median embedding pickle, IMD Excel |
+| **5** | 3 | Expanded image-level pickle, H5 (for sample images) |
+| **6** | 4, 5 | Cluster-assigned pickle, best model, IMD Excel |
+| **7** | 4, 5 | Cluster-assigned pickle, best model, IMD Excel |
+| **8** | 4, 5 | Cluster-assigned pickle, best model, IMD Excel |
+| **9a** | — | Google Earth Engine (requires authentication) |
+| **9b** | 4, 9a | AlphaEarth embedding pickle, best model, IMD Excel |
+
+Shared configuration lives in two files that are imported by most notebooks:
+
+- **`directory_filepaths.py`** — paths to data directory, H5 store, LSOA shapefile, IMD file, outputs directory
+- **`clustering_functions.py`** — `global_k`, `embedding_statistic`, `RANDOM_STATE`, aggregation helper functions
+
 ## Repository Structure
 
-The workflow is designed to be run sequentially.
+The workflow is designed to be run sequentially (see dependency graph above).
 
 ----------------
 ### 1-SampleStreetNetwork.ipynb  (_not needed to run_)
@@ -141,5 +197,27 @@ Extends the per-cluster analysis to individual IMD deprivation domains (Income, 
 The default display metric is **Normalised RMSE** (NRMSE = RMSE / std(y_test)), which is comparable across clusters despite each cluster having a different subset of LSOAs. R² and RMSE are also available via a configuration option.
 
 **Output**: A results matrix with rows as IMD domains and columns as clusters + global, displayed as a heatmap.
+
+----------------
+
+### 9a-DownloadAlphaEarthEmbeddings.ipynb
+
+Downloads 64-dimensional satellite embeddings from Google Earth Engine's AlphaEarth annual composite, exports as GeoTIFF tiles, merges them, and computes zonal statistics (mean, median, min, max) per LSOA using rasterstats.
+
+Requires Google Earth Engine authentication and a Cloud project. Tile GeoTIFFs must be downloaded manually from Google Drive after the EE export task completes.
+
+**Depends on**: Nothing (independent branch; requires GEE access)
+
+**Output**: `per_lsoa_embedding_summaries/alphaearth_embeddings.pkl` containing per-LSOA satellite embedding summaries; compressed GeoTIFF `alphaearth_gm_2023.tif.gz`.
+
+----------------
+
+### 9b-RunModelWithAlphaEarthEmbeddings.ipynb
+
+Trains an XGBoost model on the 64-dimensional AlphaEarth satellite embeddings using the same methodology as script 4, enabling a direct comparison between street-view and satellite-based deprivation prediction.
+
+**Depends on**: Script 4 (best model for comparison), Script 9a (AlphaEarth embeddings)
+
+**Output**: `best_model_alphaearth.joblib`; residuals map.
 
 ----------------
