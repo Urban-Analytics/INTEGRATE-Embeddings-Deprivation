@@ -19,6 +19,7 @@ dependencies:
   - sentence-transformers
   - libgfortran
   - ipywidgets
+  - setuptools<81
   - conda-forge::openai-clip
   - umap-learn
   - xgboost
