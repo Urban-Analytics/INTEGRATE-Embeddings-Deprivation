@@ -1,0 +1,7 @@
+# Don't commit downloaded data or API keys.
+data/
+*.h5
+*.graphml
+*.parquet
+api_key*
+.env
