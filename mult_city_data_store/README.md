@@ -23,6 +23,7 @@ before spending anything.
 | `paths.py` | Per-city path helpers and API-key lookup. |
 | `city_pipeline.py` | Boundary, road graph, sampling, metadata, download, H5 build, merge. |
 | `sample_city.ipynb` | End-to-end driver notebook. |
+| `explore_city.ipynb` | Read-only: inspect a built store (stats, maps, spot-check vs real Street View). |
 | `data/<slug>/` | Per-city state (created on first run). |
 
 ## Per-city directory layout

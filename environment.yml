@@ -30,3 +30,6 @@ dependencies:
   - nbdime
   - openpyxl
   - h5py
+  - osmnx
+  - tenacity
+  - pyarrow
