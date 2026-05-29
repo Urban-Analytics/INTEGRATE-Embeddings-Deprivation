@@ -1,0 +1,116 @@
+prompt,similarity_with_affluence
+a house with a landscaped garden,0.13327485
+a house with a manicured lawn,0.12998788
+a luxury car parked on a driveway,0.11487497
+a driveway with two cars,0.09812129
+a new SUV,0.093010426
+an expensive sports car,0.09131066
+a BMW parked on the street,0.085675806
+a Range Rover,0.08405441
+a suburban cul-de-sac,0.07115379
+a beach at sunset,0.06932208
+a taxi,0.06777607
+a large detached house,0.06378555
+a photo of a cat,0.06169355
+a freshly painted house,0.05697423
+a detached house,0.050970897
+cars parked on both sides of a narrow street,0.04883174
+a terraced house,0.046628244
+a Victorian terraced street,0.045626193
+a mansion,0.043917373
+an old rusty car,0.040624216
+a plate of food,0.038535133
+a florist,0.038514026
+CCTV cameras on a building,0.03566031
+a semi-detached house,0.03333801
+a wealthy neighbourhood,0.032283038
+a leafy suburban street,0.032161698
+a damaged car,0.029316831
+flower beds along a street,0.029125813
+an artisan coffee shop,0.029053334
+a mountain landscape,0.026875708
+a mews street,0.023943797
+a country house,0.019288093
+a warehouse,0.019113649
+an affluent suburb,0.01729476
+an alarm box on a house,0.016215071
+a wine bar,0.016201489
+a house with neat hedges,0.016087566
+a street with no cars,0.01408449
+a for sale sign outside a house,0.013242111
+a well-maintained house,0.0129502695
+graffiti on a wall,0.011792805
+a cracked pavement,0.011155676
+a scrapyard,0.010519229
+a pothole in the road,0.010221355
+an abandoned sofa on the pavement,0.010209363
+a landscaped park,0.009433573
+metal security shutters on a shopfront,0.009009733
+a to let sign outside a house,0.008706439
+a gastropub,0.0036865193
+an overflowing bin,0.003575962
+a tagged wall,0.0029433519
+a neighbourhood watch sign,0.0027071591
+a middle-class neighbourhood,0.00040777773
+a boutique clothing shop,-8.847192e-05
+a person skiing,-0.0010843817
+a working-class neighbourhood,-0.0016063247
+a shuttered shop,-0.0025712084
+a deserted street at midday,-0.0027165315
+a boarded-up house,-0.003619844
+a delicatessen,-0.00405691
+a parade of shops,-0.004485002
+a house with peeling paint,-0.0054065916
+a motorway bridge,-0.006364677
+a building with broken windows,-0.006651938
+weeds growing through the pavement,-0.008340041
+hanging baskets on a shopfront,-0.011111399
+a run-down house,-0.011655603
+a row of terraced houses,-0.011977166
+an empty residential street,-0.012253102
+a tree-lined residential street,-0.012677697
+a corner shop,-0.014036085
+a white van,-0.016861163
+a new-build estate,-0.017170373
+a deprived neighbourhood,-0.019578569
+rubbish on the pavement,-0.020306733
+an office interior,-0.020386279
+a busy shopping street,-0.020392954
+an independent bookshop,-0.02288391
+a factory,-0.02447737
+mature trees on a street,-0.025164645
+a multi-storey car park,-0.026659334
+pedestrians on a high street,-0.029560184
+a tram line,-0.0309036
+a grassy verge with no trees,-0.032740027
+a takeaway restaurant,-0.033014268
+a railway bridge,-0.034986384
+a high street of shops,-0.0352246
+an underpass,-0.03604575
+litter in the street,-0.03750344
+a boarded-up shopfront,-0.03919224
+a dilapidated house,-0.039713696
+heavy traffic on a main road,-0.04027539
+an overgrown verge,-0.041058674
+fly-tipping,-0.04205046
+an off-licence,-0.044388086
+a payday loan shop,-0.045002528
+a community garden,-0.045763932
+a high-rise apartment block,-0.0467545
+an industrial estate,-0.05051408
+a gated community,-0.050633494
+an inner-city area,-0.0514096
+a bus stop,-0.05497364
+a block of flats,-0.05606447
+a petrol station,-0.06218368
+a poor area,-0.06443715
+a derelict building,-0.0719078
+a pawnbroker,-0.07254097
+a patch of waste ground,-0.0740103
+a fried chicken shop,-0.076161966
+a well-kept public park,-0.078854896
+a council estate,-0.09314896
+a market town,-0.10370578
+a betting shop,-0.107823014
+a rural village,-0.114197016
+a social housing estate,-0.13542598
