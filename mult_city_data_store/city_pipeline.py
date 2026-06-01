@@ -99,28 +99,62 @@ def build_road_graph(boundary_gdf: gpd.GeoDataFrame, paths: CityPaths):
 
 # --- stage 3: deterministic edge sampling -----------------------------------
 
-def sample_points_along_edges(graph, spacing_m: float = DEFAULT_SPACING_M) -> gpd.GeoDataFrame:
+def sample_points_along_edges(
+    graph,
+    spacing_m: float = DEFAULT_SPACING_M,
+    dedupe_two_way: bool = True,
+) -> gpd.GeoDataFrame:
     """One row per candidate point: ``point_local_id``, ``geometry``, edge keys.
 
     The local id is just a row index used until the points are merged into the
     master table — at that point they get globally unique ``point_id``s.
     Returned CRS is EPSG:4326 (lat/lon) for direct use with the SV API.
+
+    A two-way street is stored in the OSM drive graph as two directed edges
+    (``u->v`` and ``v->u``) whose geometry is an exact reverse of one another.
+    With ``dedupe_two_way=True`` (the default) each *physical* road is sampled
+    only once: each edge's coordinate sequence is canonicalised so a geometry
+    and its reverse map to the same key, and the second time we see a key we
+    skip it. Divided carriageways and genuinely separate roads have distinct
+    (not reversed-identical) geometry, so they are correctly kept. Set this to
+    ``False`` to sample every directed edge — this roughly doubles the points
+    (and the image cost) on every two-way road and interleaves the two offset
+    point sets into an irregular spacing; kept as an option mainly to reproduce
+    or compare against the old behaviour.
     """
     edges_gdf = ox.graph_to_gdfs(graph, nodes=False)
     if "length" not in edges_gdf.columns:
         raise RuntimeError("Edges missing 'length' — was add_edge_lengths called?")
 
     records: list[dict] = []
+    seen_geoms: set[tuple] = set()  # canonical geometry keys already sampled
+    n_roads = 0       # distinct roads considered (valid geometry/length)
+    n_too_short = 0   # of those, how many were too short to place any point
+    short_len_m = 0.0  # running total length of the skipped short roads
     for (u, v, key), row in edges_gdf.iterrows():
         geom = row.geometry
         length_m = float(row["length"])
         if geom is None or length_m <= 0:
             continue
+        if dedupe_two_way:
+            # Collapse an edge and its reverse to one road. Round to 7dp (~1cm)
+            # so float noise in the reversed coordinates doesn't defeat the
+            # match, then take the orientation-independent (min of
+            # forward/backward) key.
+            coords = tuple((round(x, 7), round(y, 7)) for x, y in geom.coords)
+            canon = min(coords, coords[::-1])
+            if canon in seen_geoms:
+                continue
+            seen_geoms.add(canon)
+        n_roads += 1
         # Points at spacing/2, 3*spacing/2, ... up to length. Guarantees a
         # gap of >= spacing/2 from each endpoint, so adjacent edges don't pile
         # points on top of each other at intersections.
         positions = np.arange(spacing_m / 2.0, length_m, spacing_m)
         if len(positions) == 0:
+            # Road shorter than spacing/2 — no point placed (it's disregarded).
+            n_too_short += 1
+            short_len_m += length_m
             continue
         for d in positions:
             frac = float(d) / length_m
@@ -141,6 +175,14 @@ def sample_points_along_edges(graph, spacing_m: float = DEFAULT_SPACING_M) -> gp
     gdf["sampled_lon"] = gdf.geometry.x.round(6)
     # Within-batch dedupe (rare, but possible at intersection junctions).
     gdf = gdf.drop_duplicates(subset=["sampled_lat", "sampled_lon"]).reset_index(drop=True)
+
+    # Report short roads that fell below spacing/2 and so received no point.
+    pct = 100.0 * n_too_short / n_roads if n_roads else 0.0
+    print(
+        f"Sampled {len(gdf)} points from {n_roads} roads. "
+        f"{n_too_short} roads ({pct:.1f}%) shorter than {spacing_m / 2:.0f} m were "
+        f"skipped with no point ({short_len_m / 1000:.1f} km of road unsampled)."
+    )
     return gdf
 
 

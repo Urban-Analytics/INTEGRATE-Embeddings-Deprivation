@@ -82,6 +82,24 @@ class CityPaths:
     def h5(self) -> Path:
         return self.root / "street_data.h5"
 
+    def __repr__(self) -> str:
+        lines = [f"CityPaths(slug={self.slug!r})", f"  root : {self.root}"]
+        props = [
+            ("boundary_geojson", self.boundary_geojson),
+            ("road_graph",       self.road_graph),
+            ("points_parquet",   self.points_parquet),
+            ("samples_manifest", self.samples_manifest),
+            ("pano_metadata",    self.pano_metadata),
+            ("attempted",        self.attempted),
+            ("images_dir",       self.images_dir),
+            ("h5",               self.h5),
+        ]
+        width = max(len(name) for name, _ in props)
+        for name, path in props:
+            exists = "✓" if path.exists() else "✗"
+            lines.append(f"  {name:<{width}} {exists}  {path}")
+        return "\n".join(lines)
+
     def ensure_dirs(self) -> None:
         self.root.mkdir(parents=True, exist_ok=True)
         self.images_dir.mkdir(parents=True, exist_ok=True)
