@@ -228,7 +228,10 @@ def register_sampling_round(
 
     if new.empty:
         print(f"No new points: all {len(candidates)} candidates already in master table.")
-        return new
+        # Return an empty frame with the master schema (point_id/round_id are
+        # only assigned below, so `new` doesn't have them yet) — keeps the
+        # return type consistent so callers can always do new_rows["point_id"].
+        return pd.DataFrame({c: pd.Series(dtype="object") for c in _POINT_COLS})
 
     round_id = 1 if manifest.empty else int(manifest["round_id"].max()) + 1
     next_id = 0 if existing.empty else int(existing["point_id"].max()) + 1
