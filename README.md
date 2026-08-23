@@ -3,7 +3,7 @@
 This repository contains code for testing whether area-level deprivation can be predicted from Google Street View imagery using image embeddings.
 
 This is part of the [INTEGRATE](https://urban-analytics.github.io/INTEGRATE/) project and originally lived in the
-[INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE), specfically 
+[INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE), specifically 
 [here](https://github.com/Urban-Analytics/INTEGRATE/tree/main/llm/python/Embeddings/CLIP/WithClustering) 
 but we moved it to this repository to make it easier to 
 find and use, and to consolidate the locations of the code and data (which were previously spread all over the place). 
@@ -67,7 +67,7 @@ that only rejoins the main pipeline via the saved best model from script 4.
               ┌────┴────┐         │
               ▼         ▼         │
          4-Global    5-Cluster    │
-         Model       Numbers     │
+         Model       Numbers      │
               │         │         │
               │    ┌────┼────┐    │
               │    ▼    ▼    ▼    │
@@ -96,6 +96,11 @@ Shared configuration lives in two files that are imported by most notebooks:
 
 - **`directory_filepaths.py`** — paths to data directory, H5 store, LSOA shapefile, IMD file, outputs directory
 - **`clustering_functions.py`** — `global_k`, `embedding_statistic`, `RANDOM_STATE`, aggregation helper functions
+
+## Use of AI
+
+The first version of the code (that lived in the [INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE)) was written by the authors, with help from AI (we would write the notebooks and use AI to help with certain parts). In this new version, AI (mostly versions of Claude Opus) played a much larger role in refactoring the old code (we asked it to port the code and it mostly did it on its own, with our supervision). So it isn't vibe coding -- we are still very much authors of the code, and much of the original code was written by us -- but the AI has played a much larger role in this newer version.
+
 
 ## Repository Structure
 
