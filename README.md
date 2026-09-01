@@ -101,6 +101,8 @@ Shared configuration lives in two files that are imported by most notebooks:
 
 The first version of the code (that lived in the [INTEGRATE repository](https://github.com/Urban-Analytics/INTEGRATE)) was written by the authors, with help from AI (we would write the notebooks and use AI to help with certain parts). In this new version, AI (mostly versions of Claude Opus) played a much larger role in refactoring the old code (we asked it to port the code and it mostly did it on its own, with our supervision). So it isn't vibe coding -- we are still very much authors of the code, and much of the original code was written by us -- but the AI has played a much larger role in this newer version.
 
+We then added some extensions to the work in notebooks 9(a/b), 10 and 11, and these are much more vibe coded. Claude Opus wrote the code and the authors checked and amended it, not the other way round.
+
 
 ## Repository Structure
 

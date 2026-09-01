@@ -5,6 +5,8 @@ channels:
 dependencies:
   - contextily
   - geopandas
+  - libpysal
+  - esda
   - numpy
   - matplotlib
   - shapely
